@@ -38,11 +38,10 @@ class Todo extends Component {
     try {
       const { id, loadList } = this.props
 
-      await fireStore.delete(id)
+      await fireStore.deleteOne(id)
       await loadList(true)
     } catch (error) {
       console.log(error)
-      this.setState({ isChecked: !isChecked })
     }
   }
 
@@ -76,8 +75,8 @@ class Todo extends Component {
           paddingTop: 13,
           padding: 5,
           borderBottomColor: '#dedede',
-          borderBottomWidth: 1
-              }}
+          borderBottomWidth: 1,
+        }}
       >
         <BouncyCheckbox
           size={25}

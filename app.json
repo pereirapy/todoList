@@ -25,11 +25,15 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "me.digitalizar.todolist",
+      "versionCode": 1
+
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": "Just to play"
+    "description": "An App to show my skills like a Programmer on React Native",
+    "githubUrl": "https://github.com/pereirapy/todoList"
   }
 }
