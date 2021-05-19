@@ -1,4 +1,4 @@
- # Todo Projec in React Native with Expo go.
+ # Project Todo - Made in React Native with Expo go.
 
  ## This project was my first contact with React Native, and I loved. I would to like share with you my code. I hope that you enjoy it.
  ### To use this project, will be necessary to do some steps:
