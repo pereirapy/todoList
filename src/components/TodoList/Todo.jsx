@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View, Vibration } from 'react-native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import LeftSwipeActions from './LeftSwipeActions'
@@ -13,10 +13,12 @@ class Todo extends Component {
     this.state = {
       isChecked: props.complete,
       backgroundColor: 'white',
+      swipeableRow: null,
     }
     this.toggleComplete = this.toggleComplete.bind(this)
     this.deleteTodo = this.deleteTodo.bind(this)
     this.onLongPress = this.onLongPress.bind(this)
+    this.updateRef = this.updateRef.bind(this)
   }
 
   async toggleComplete() {
@@ -24,6 +26,7 @@ class Todo extends Component {
     const { isChecked } = this.state
 
     try {
+      
       this.setState({ isChecked: !isChecked })
       updateItem({ id, complete: !isChecked, title })
 
@@ -42,6 +45,7 @@ class Todo extends Component {
       const { id, loadList } = this.props
 
       await fireStore.deleteOne(id)
+      Vibration.vibrate(100)
       await loadList(true)
     } catch (error) {
       console.log(error)
@@ -49,8 +53,10 @@ class Todo extends Component {
   }
 
   onLongPress() {
+    Vibration.vibrate(100)
     this.setState({ backgroundColor: 'red' })
     const { title } = this.props
+    const { swipeableRow } = this.state
 
     Alert.alert(
       'Are you sure you want to delete?',
@@ -58,7 +64,10 @@ class Todo extends Component {
       [
         {
           text: 'Cancel',
-          onPress: () => this.setState({ backgroundColor: 'white' }),
+          onPress: () => {
+            swipeableRow.close()
+            this.setState({ backgroundColor: 'white' })
+          },
           style: 'cancel',
         },
         { text: 'Confirm', onPress: () => this.deleteTodo() },
@@ -66,12 +75,16 @@ class Todo extends Component {
     )
   }
 
+  updateRef = (ref) => {
+    this.setState({ swipeableRow: ref })
+  }
 
   render() {
     const { isChecked } = this.state
     const { title } = this.props
     return (
       <Swipeable
+        ref={this.updateRef}
         renderLeftActions={() => <LeftSwipeActions isChecked={isChecked} />}
         renderRightActions={RightSwipeActions}
         onSwipeableRightOpen={this.onLongPress}

@@ -9,7 +9,8 @@ const RightSwipeActions = () => {
         justifyContent: 'center',
         alignItems: 'flex-end',
         height: 60,
-        borderBottomColor: '#dedede',
+        flex: 1,
+        borderBottomColor: 'red',
         borderBottomWidth: 1,
       }}
     >

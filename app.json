@@ -28,7 +28,6 @@
       },
       "package": "me.digitalizar.todolist",
       "versionCode": 1
-
     },
     "web": {
       "favicon": "./assets/favicon.png"
