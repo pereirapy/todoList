@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import { Alert, StyleSheet, View, Text } from 'react-native'
+import { Alert, StyleSheet, View } from 'react-native'
 import BouncyCheckbox from 'react-native-bouncy-checkbox'
+import Swipeable from 'react-native-gesture-handler/Swipeable'
+import LeftSwipeActions from './LeftSwipeActions'
+import RightSwipeActions from './RightSwipeActions'
 import { fireStore } from '../../services'
 
 class Todo extends Component {
@@ -63,35 +66,43 @@ class Todo extends Component {
     )
   }
 
+
   render() {
     const { isChecked } = this.state
     const { title } = this.props
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: this.state.backgroundColor,
-          height: 60,
-          paddingTop: 13,
-          padding: 5,
-          borderBottomColor: '#dedede',
-          borderBottomWidth: 1,
-        }}
+      <Swipeable
+        renderLeftActions={() => <LeftSwipeActions isChecked={isChecked} />}
+        renderRightActions={RightSwipeActions}
+        onSwipeableRightOpen={this.onLongPress}
+        onSwipeableLeftOpen={this.toggleComplete}
       >
-        <BouncyCheckbox
-          size={25}
-          style={styles.checkbox}
-          fillColor={isChecked ? '#35EA56' : '#F43E4C'}
-          unfillColor="#FFFFFF"
-          onLongPress={this.onLongPress}
-          isChecked={isChecked}
-          disableBuiltInState={true}
-          text={title}
-          iconStyle={{ borderColor: isChecked ? '#35EA56' : '#F43E4C' }}
-          textStyle={{ fontFamily: 'Arial' }}
-          onPress={this.toggleComplete}
-        />
-      </View>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: this.state.backgroundColor,
+            height: 60,
+            paddingTop: 13,
+            padding: 5,
+            borderBottomColor: '#dedede',
+            borderBottomWidth: 1,
+          }}
+        >
+          <BouncyCheckbox
+            size={25}
+            style={styles.checkbox}
+            fillColor={isChecked ? '#35EA56' : '#F43E4C'}
+            unfillColor="#FFFFFF"
+            onLongPress={this.onLongPress}
+            isChecked={isChecked}
+            disableBuiltInState={true}
+            text={title}
+            iconStyle={{ borderColor: isChecked ? '#35EA56' : '#F43E4C' }}
+            textStyle={{ fontFamily: 'Arial' }}
+            onPress={this.toggleComplete}
+          />
+        </View>
+      </Swipeable>
     )
   }
 }

@@ -143,7 +143,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 5,
     paddingRight: 5,
-    backgroundColor: 'white',
   },
   sectionHeader: {
     paddingTop: 12,
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     height: 50,
     fontWeight: 'bold',
-    backgroundColor: 'rgba(247,247,247,1.0)',
+    backgroundColor: 'white',
   },
   complete: {
     borderTopColor: '#35EA56',
